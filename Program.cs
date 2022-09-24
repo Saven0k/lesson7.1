@@ -1,4 +1,4 @@
-﻿// Задача 53: Задайте двумерный массив. Напишите программу, которая поменяет местами первую и последнюю строку массива.
+﻿// Задача 55: Задайте двумерный массив. Напишите программу, которая заменяет строки на столбцы. В случае, если это невозможно, программа должна вывести сообщение для пользователя. 
 Console.Clear();
 Console.Write("Введите колличество строк массива: ");
 int rows = Math.Abs(int.Parse(Console.ReadLine()));
@@ -29,20 +29,30 @@ void PrintArray(int[,] inarray)
         Console.WriteLine();
     }
 }
-int[,] ChangeRows(int[,] arra)
+
+int[,] ChangeRowsOnColoms(int[,] arra)
 {
-    int[,] result1 = arra; 
-    int[] changeBox = new int[colomns];
-    for (int i = 0; i < colomns; i++)
+    int[,] result1 = new int[colomns,rows];
+    int[,] result0 = {};
+    if (rows == colomns)
     {
-        changeBox[i] = arra[0,i];
-        result1[0,i] = arra[arra.GetLength(0)-1, i];
-        arra[arra.GetLength(0)-1, i] = changeBox[i];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < colomns; j++)
+            {
+                result1[j,i] = arra[i,j];
+            }
+        }
+        return result1;
     }
-    return result1;
+    else
+    {
+        Console.WriteLine("Поменять стороки на столбы невозможно");
+        return result0;
+    }
 }
 int[,] array = GetArray(rows, colomns, minValue: 1, maxValue: 10);
 PrintArray(array);
-Console.WriteLine(     );
-int[,] array2 = ChangeRows(array);
-PrintArray(array2);
+Console.WriteLine();
+int[,] arra1 = ChangeRowsOnColoms(array);
+PrintArray(arra1);
