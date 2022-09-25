@@ -1,10 +1,13 @@
-﻿// адача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
-// 5 2 6 7
-// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+﻿// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Например, даны 2 матрицы:
+// 2 4 | 3 4
+// 3 2 | 3 3
+// Результирующая матрица будет:
+// 18 20
+// 15 18
+
+
+
 
 Console.Clear();
 Console.Write("Введите колличество строк массива: ");
@@ -37,45 +40,37 @@ void PrintArray(int[,] inarray)
     }
 }
 
-int[] MinSumInArray(int[,] arra)
+int[,] CompositionArray(int[,] arra1, int[,] arra2)
 {
-    int[] result1 = new int[rows];
-    for (int i = 0; i < rows; i++)
+    int[,] ResultArray = new int[rows, colomns];
+    if (((arra1.GetLength(0)) == arra2.GetLength(0)) && ((arra1.GetLength(1)) == (arra2.GetLength(1))))
     {
-        for (int j = 0; j < colomns; j++)
+        for (int i = 0; i < rows; i++)
         {
-            result1[i] += arra[i, j];
+            for (int j = 0; j < colomns; j++)
+            {
+                ResultArray[i, j] = arra1[i, j] * arra2[i, j];
+            }
         }
+        return ResultArray;
     }
-    int count1 = 0;
-    foreach (int i in result1)
+    else
     {
-        count1++;
-        Console.WriteLine($"{i} - сумма строки {count1}");
+        Console.WriteLine("Эти массивы нельзя полностью перемножить");
+        int[,] EmptyArray = { };
+        return EmptyArray;
     }
-    return result1;
 }
 
-void PrintAnswer(int[] arra)
-{
-    int min = arra[0];
-    int count = 1;
-    foreach ( int i in arra)
-    {
-        if (i < min)
-        {
-            min = i;
-            count = count + 1;
-        }
-    }
-    Console.WriteLine();
-    Console.WriteLine($" У строки {count} наименьшая сумма ({min})");
-}
-int[,] array = GetArray(rows, colomns, 0, 9);
-PrintArray(array);
-Console.WriteLine();
 
+Console.WriteLine("первый массив");
+int[,] array1 = GetArray(rows, colomns, minValue: 1, maxValue: 5);
+PrintArray(array1);
 Console.WriteLine();
-int[] array1 = MinSumInArray(array);
-PrintAnswer(array1);
-
+Console.WriteLine("Второй массив");
+int[,] array2 = GetArray(rows, colomns, minValue: 1, maxValue: 5);
+PrintArray(array2);
+Console.WriteLine();
+Console.WriteLine("Произведенние массивов");
+int[,] resultArrray = CompositionArray(array1, array2);
+PrintArray(resultArrray);
