@@ -1,8 +1,20 @@
-﻿// Задача 57: Составить частотный словарь элементов двумерного массива. Частотный словарь содержит информацию о том, сколько раз встречается элемент входных данных.
+﻿// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// В итоге получается вот такой массив:
+// 7 4 2 1
+// 9 5 3 2
+// 8 4 4 2
 Console.Clear();
+Console.Write("Введите колличество строк массива: ");
+int rows = Math.Abs(int.Parse(Console.ReadLine()));
 
+Console.Write("Введите колличество колоннок массива: ");
+int colomns = Math.Abs(int.Parse(Console.ReadLine()));
 
-int[,] GetArray2(int m, int n, int minValue, int maxValue)
+int[,] GetArray(int m, int n, int minValue, int maxValue)
 {
     int[,] result = new int[m, n];
     for (int i = 0; i < m; i++)
@@ -14,7 +26,7 @@ int[,] GetArray2(int m, int n, int minValue, int maxValue)
     }
     return result;
 }
-void PrintArray2(int[,] inarray)
+void PrintArray(int[,] inarray)
 {
     for (int i = 0; i < inarray.GetLength(0); i++)
     {
@@ -25,88 +37,31 @@ void PrintArray2(int[,] inarray)
         Console.WriteLine();
     }
 }
-int[] GetArray1(int size, int minValue, int maxValue)
+
+int[,] NumbersUp(int[,] arra)
 {
-    int[] res = new int[size];
-    for (int i = 0; i < size; i++)
+    int[,] result1 = arra;
+    for (int i = 0; i < rows; i++)
     {
-        res[i] = new Random().Next(minValue, maxValue + 1);
-        if (i == size - 1) Console.Write($"{res[i]}");
-        else Console.Write($"{res[i]} , ");
-    }
-    Console.WriteLine();
-    return res;
-}
-void PrintArray1(int[] inarray)
-{
-    for (int i = 0; i < inarray.Length; i++)
-    {
-        Console.Write($"{inarray[i]} ");
-    }
-    Console.WriteLine();
-}
-int[,] CountNumbers2(int[,] array)
-{
-    int rows = array.GetLength(0);
-    int colomns = array.GetLength(1);
-    int min = 0;
-    int max = 9;
-    int[,] count = new int[2, 10];
-    for (int k = min; k <= max; k++)
-    {
-        count[0, k] = k;
-        for (int i = 0; i < rows; i++)
+        for (int j = 0; j < colomns; j++)
         {
-            for (int j = 0; j < colomns; j++)
+            for (int g = 0; g < colomns-1; g++)
             {
-                if (array[i, j] == k)
+                if (arra[i, g] < arra[i, g+1])
                 {
-                    count[1, k] += 1;
+                    int temp = arra[i, g+1];
+                    arra[i, g+1] = arra[i, g ];
+                    result1[i, g] = temp;
+
                 }
             }
+
         }
     }
-    return count;
+    return result1;
 }
-int[,] CountNumbers1(int[] array)
-{
-    int min = 0;
-    int max = 9;
-    int[,] count1 = new int[2, 10];
-    for (int k = min; k <= max; k++)
-    {
-        count1[0, k] = k;
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (array[i] == k)
-            {
-                count1[1, k] += 1;
-            }
-        }
-    }
-    return count1;
-}
-int[,] array2 = GetArray2(2, 3, 0, 3);
-int[,] countArray2 = CountNumbers2(array2);
-void PrintArrayWithName (int[,] arrayToName)
-{
-    int rows = arrayToName.GetLength(0);
-    int colomns= arrayToName.GetLength(1);
-    for (int l = 0; l < colomns; l++)
-    {
-        if (arrayToName[1,l] != 0) Console.WriteLine($"{arrayToName[0,l]} встречаеться {arrayToName[1,l]} раз(а)");
-    }
-}
-
-PrintArray2(array2);
+int[,] array = GetArray(rows, colomns, 0, 9);
+PrintArray(array);
 Console.WriteLine();
-PrintArrayWithName(countArray2);
-Console.WriteLine();
-
-int[] array1 = GetArray1(3 , 0 , 4);
-int[,] countarray1 = CountNumbers1(array1);
-
-// PrintArray1(array1);
-Console.WriteLine();
-PrintArrayWithName(countarray1);
-Console.WriteLine();
+int[,] array1 = NumbersUp(array);
+PrintArray(array1);
