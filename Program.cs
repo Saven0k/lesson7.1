@@ -1,12 +1,11 @@
-﻿// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+﻿// адача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 // Например, задан массив:
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
-// В итоге получается вот такой массив:
-// 7 4 2 1
-// 9 5 3 2
-// 8 4 4 2
+// 5 2 6 7
+// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+
 Console.Clear();
 Console.Write("Введите колличество строк массива: ");
 int rows = Math.Abs(int.Parse(Console.ReadLine()));
@@ -38,30 +37,45 @@ void PrintArray(int[,] inarray)
     }
 }
 
-int[,] NumbersUp(int[,] arra)
+int[] MinSumInArray(int[,] arra)
 {
-    int[,] result1 = arra;
+    int[] result1 = new int[rows];
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < colomns; j++)
         {
-            for (int g = 0; g < colomns-1; g++)
-            {
-                if (arra[i, g] < arra[i, g+1])
-                {
-                    int temp = arra[i, g+1];
-                    arra[i, g+1] = arra[i, g ];
-                    result1[i, g] = temp;
-
-                }
-            }
-
+            result1[i] += arra[i, j];
         }
     }
+    int count1 = 0;
+    foreach (int i in result1)
+    {
+        count1++;
+        Console.WriteLine($"{i} - сумма строки {count1}");
+    }
     return result1;
+}
+
+void PrintAnswer(int[] arra)
+{
+    int min = arra[0];
+    int count = 1;
+    foreach ( int i in arra)
+    {
+        if (i < min)
+        {
+            min = i;
+            count = count + 1;
+        }
+    }
+    Console.WriteLine();
+    Console.WriteLine($" У строки {count} наименьшая сумма ({min})");
 }
 int[,] array = GetArray(rows, colomns, 0, 9);
 PrintArray(array);
 Console.WriteLine();
-int[,] array1 = NumbersUp(array);
-PrintArray(array1);
+
+Console.WriteLine();
+int[] array1 = MinSumInArray(array);
+PrintAnswer(array1);
+
