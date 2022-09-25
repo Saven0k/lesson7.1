@@ -1,76 +1,51 @@
-﻿// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-// Например, даны 2 матрицы:
-// 2 4 | 3 4
-// 3 2 | 3 3
-// Результирующая матрица будет:
-// 18 20
-// 15 18
-
-
-
-
+﻿// Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+// Массив размером 2 x 2 x 2
+// 66(0,0,0) 25(0,1,0)
+// 34(1,0,0) 41(1,1,0)
+// 27(0,0,1) 90(0,1,1)
+// 26(1,0,1) 55(1,1,1)
+// Не получился и не знаю как сделать
 Console.Clear();
-Console.Write("Введите колличество строк массива: ");
-int rows = Math.Abs(int.Parse(Console.ReadLine()));
+Console.Write("Введите X: ");
+int X = Math.Abs(int.Parse(Console.ReadLine()));
 
-Console.Write("Введите колличество колоннок массива: ");
-int colomns = Math.Abs(int.Parse(Console.ReadLine()));
+Console.Write("Введите Y: ");
+int Y = Math.Abs(int.Parse(Console.ReadLine()));
 
-int[,] GetArray(int m, int n, int minValue, int maxValue)
+Console.Write("Введите Z: ");
+int Z = Math.Abs(int.Parse(Console.ReadLine()));
+
+void PrintArray(int[,,] arra3D)
 {
-    int[,] result = new int[m, n];
-    for (int i = 0; i < m; i++)
+    Console.WriteLine();
+    for (int i = 0; i < arra3D.GetLength(0); i++)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < arra3D.GetLength(1); j++)
         {
-            result[i, j] = new Random().Next(minValue, maxValue);
-        }
-    }
-    return result;
-}
-void PrintArray(int[,] inarray)
-{
-    for (int i = 0; i < inarray.GetLength(0); i++)
-    {
-        for (int j = 0; j < inarray.GetLength(1); j++)
-        {
-            Console.Write($"{inarray[i, j]}  ");
+            for (int g = 0; g < arra3D.GetLength(2); g++)
+            {
+                Console.WriteLine($"{arra3D[i, j, g]}");
+            }
+            Console.WriteLine();
         }
         Console.WriteLine();
     }
+    Console.WriteLine();
 }
-
-int[,] CompositionArray(int[,] arra1, int[,] arra2)
+int[,,] CreatArray(int x, int y, int z)
 {
-    int[,] ResultArray = new int[rows, colomns];
-    if (((arra1.GetLength(0)) == arra2.GetLength(0)) && ((arra1.GetLength(1)) == (arra2.GetLength(1))))
+    int[,,] Array3d = new int[x, y, z];
+    for (int i = 0; i < Array3d.GetLength(0); i++)
     {
-        for (int i = 0; i < rows; i++)
+        for (int j = 0; j < Array3d.GetLength(1); j++)
         {
-            for (int j = 0; j < colomns; j++)
+            for (int g = 0; g < Array3d.GetLength(2); g++)
             {
-                ResultArray[i, j] = arra1[i, j] * arra2[i, j];
+                Array3d[i, j, g] = new Random().Next(10, 100);
             }
         }
-        return ResultArray;
     }
-    else
-    {
-        Console.WriteLine("Эти массивы нельзя полностью перемножить");
-        int[,] EmptyArray = { };
-        return EmptyArray;
-    }
+    return Array3d;
 }
-
-
-Console.WriteLine("первый массив");
-int[,] array1 = GetArray(rows, colomns, minValue: 1, maxValue: 5);
-PrintArray(array1);
-Console.WriteLine();
-Console.WriteLine("Второй массив");
-int[,] array2 = GetArray(rows, colomns, minValue: 1, maxValue: 5);
-PrintArray(array2);
-Console.WriteLine();
-Console.WriteLine("Произведенние массивов");
-int[,] resultArrray = CompositionArray(array1, array2);
-PrintArray(resultArrray);
+int[,,] array3 = CreatArray(X, Y, Z);
+PrintArray(array3);
