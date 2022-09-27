@@ -1,51 +1,37 @@
-﻿// Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
-// Массив размером 2 x 2 x 2
-// 66(0,0,0) 25(0,1,0)
-// 34(1,0,0) 41(1,1,0)
-// 27(0,0,1) 90(0,1,1)
-// 26(1,0,1) 55(1,1,1)
-// Не получился и не знаю как сделать
+﻿// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+// Например, на выходе получается вот такой массив:
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
 Console.Clear();
-Console.Write("Введите X: ");
-int X = Math.Abs(int.Parse(Console.ReadLine()));
-
-Console.Write("Введите Y: ");
-int Y = Math.Abs(int.Parse(Console.ReadLine()));
-
-Console.Write("Введите Z: ");
-int Z = Math.Abs(int.Parse(Console.ReadLine()));
-
-void PrintArray(int[,,] arra3D)
+int i = 0;
+int j = 0;
+int g = 1;
+int m = 4;
+int[,] ZipArray = new int[m, m];
+while (g <= 4 * 4)
 {
-    Console.WriteLine();
-    for (int i = 0; i < arra3D.GetLength(0); i++)
+  ZipArray[i,j] = g;
+  g++;
+  if (i <= j + 1 && i + j < m - 1)
+    j++;
+  else if (i < j && i + j >= m - 1)
+    i++;
+  else if (i >= j && i + j > m - 1)
+    j--;
+  else
+    i--;
+}
+void PrintArray(int[,] inarray)
+{
+    for (int i = 0; i < inarray.GetLength(0); i++)
     {
-        for (int j = 0; j < arra3D.GetLength(1); j++)
+        for (int j = 0; j < inarray.GetLength(1); j++)
         {
-            for (int g = 0; g < arra3D.GetLength(2); g++)
-            {
-                Console.WriteLine($"{arra3D[i, j, g]}");
-            }
-            Console.WriteLine();
+            Console.Write($"{inarray[i, j]}  ");
         }
         Console.WriteLine();
     }
-    Console.WriteLine();
 }
-int[,,] CreatArray(int x, int y, int z)
-{
-    int[,,] Array3d = new int[x, y, z];
-    for (int i = 0; i < Array3d.GetLength(0); i++)
-    {
-        for (int j = 0; j < Array3d.GetLength(1); j++)
-        {
-            for (int g = 0; g < Array3d.GetLength(2); g++)
-            {
-                Array3d[i, j, g] = new Random().Next(10, 100);
-            }
-        }
-    }
-    return Array3d;
-}
-int[,,] array3 = CreatArray(X, Y, Z);
-PrintArray(array3);
+PrintArray(ZipArray);
